@@ -70,7 +70,7 @@ def user_command_manage(request, id=None):
             if request.GET.has_key('delete'):   #dict.has_key(key) 判断字典是否含有某个key
                 id = request.GET.get('id')
                 command = get_object_or_404(UserCommand, pk=id)
-                command.delete()    #?这是什么
+                command.delete()
                 
                 Message.objects.create(_type=u'权限控制',
                     user=request.user.first_name,
