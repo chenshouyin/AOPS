@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <form action="{% url "file_distribute" %}" method="POST" align="center">
+        {% csrf_token %}
+        {% for field in form %}
+            <p>{{ field.label_tag}}
+            {{ field }}</br>
+        {% endfor %}
+        <p><input type="submit" value="提交"></p>
+    </form>
+    {% if messages %}
+        {% for msg in messages %}
+            {{ msg.message }}
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

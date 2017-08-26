@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <form action="{% url 'file_upload' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.label_tag }}
+            {{ field }}</br>
+        {% endfor %}
+        <p><input type="submit" value="提交"></p>
+    </form>
+</div>
+{% endblock %}

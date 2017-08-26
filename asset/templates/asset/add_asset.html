@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+<body>
+{% block content %}
+<div class="right_col" role="main">
+<form action="{% url 'add_asset' %}" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+    <input name="submit" type="submit" value="增加">
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style type="text/css">
+table {
+width: 1000px;
+border: 1px solid green;
+border-spacing: 20px;
+border-collapse: collapse;
+}
+th {
+text-align: center;
+border: 1px solid;
+height: 50px;
+}
+td {
+border: 1px solid;
+text-align: center;
+height: 50px;
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="right_col" role="main">
+    <div>
+        <table id="supervisor">
+            <tr>
+                <th>主机名</th>
+                <th>进程名</th>
+                <th>状态</th>
+                <th>进程描述</th>
+                <th>动作</th>
+            </tr>
+            {% for key, value in all_process_info.iteritems %}
+                {% for process in value %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ process.name }}</td>
+                        <td>
+                            {% ifequal process.statename "RUNNING" %}
+                                <font color="00FF99">{{ process.statename }}</font>
+                            {% endifequal %}
+
+                            {% ifequal process.statename "STARTING" %}
+                                <font color="00FF99">{{ process.statename }}</font>
+                            {% endifequal %}
+
+                            {% ifequal process.statename "STOPPED" %}
+                                <font color="CC0000">{{ process.statename }}</font>
+                            {% endifequal %}    
+                        </td>
+                        <td>{{ process.description }}</td>
+                        <td>
+                            <form action="{% url 'su_manage' key process.name %}" method="POST">
+                                {% csrf_token %}
+                                <!--<input name="restart" type="submit" value="restart"></input>-->
+                                <input name="start" type="submit" value="start"></input>
+                                <input name="stop" type="submit" value="stop"></input>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        <button type="button" onclick="loadSupervisor()">修改内容</button>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+<script type="text/javascript">
+    function loadSupervisor()
+    {
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+            xmlhttp = new XMLHttpRequest();
+        }   
+        else
+        {
+            xmlhttp = new ActiveXobject("Microsoft.XMLHTTP");
+        }
+        
+        xmlhttp.onreadystatechage = function()
+        {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+            {
+                document.getElementByid("supervisor").innerHTML=xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "{% url 'supervisor' %}", true);
+        xmlhttp.send()
+    }
+</script>
+
+
+

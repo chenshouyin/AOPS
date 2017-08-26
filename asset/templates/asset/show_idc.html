@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style type="text/css">
+table {
+width: 1000px;
+border: 1px solid green;
+border-spacing: 20px;
+border-collapse: collapse;
+}
+th {
+text-align: center;
+border: 1px solid;
+height: 50px;
+}
+td {
+border: 1px solid;
+text-align: center;
+height: 50px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <p><button type="button" onclick="location.href='{% url 'add_idc' %}'">添加IDC</button></p>
+
+    <table>
+        <tr>
+            <th>机房名称</th>
+            <th>IP地址段</th>
+            <th>机房地址</th>
+            <th>联系人/联系电话</th>
+            <th>运营商</th>
+            <th>备注</th>
+        </tr>
+        {% for info in idc %}
+        <tr>
+            <td>{{ info.name }}</td>
+            <td>{{ info.newwork }}</td>
+            <td>{{ info.address }}</td>
+            <td>{{ info.linkman }}/{{ info.phone }}</td>
+            <td>{{ info.operator }}</td>
+            <td>{{ info.comment }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

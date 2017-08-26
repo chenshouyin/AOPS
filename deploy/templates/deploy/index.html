@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="right_col" role="main">
+    <div id="random"> 
+        {{ value }}
+    </div>
+    <button type="button" onclick="loadXMLDoc()">改变</button>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript">
+function loadXMLDoc()
+{
+  //document.write("test")
+  var xmlhttp;
+
+  if (window.XMLHttpRequest)
+  {
+    xmlhttp = new XMLHttpRequest();
+  }
+  else
+  {
+    xmlhttp = new ActiveXOBject("Microsoft.XMLHTTP");
+  }
+  
+  xmlhttp.onreadystatechange = function()
+  {
+    if (xmlhttp.onreadyState == 4 && xmlhttp.status == 200)
+    {
+      document.getElementById("random").innerHTML = xmlhttp.responseText;
+    }
+  }  
+  
+  xmlhttp.open("GET", "{% url 'index' %}", true);
+  xmlhttp.send();
+
+}
+</script>
+{% endblock %}
+  

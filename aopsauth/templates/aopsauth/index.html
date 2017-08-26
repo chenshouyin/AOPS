@@ -1,0 +1,60 @@
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">    
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    </head>
+
+<body>
+
+    <div class="container-fluid">
+        <!--<nav class="navbar navbar-default" role="navigation">-->
+        <div class="row">
+        <div class="col-md-3 left_col">
+            <div class="navbar navbar-default" role="navigation">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#">首页</a></li>
+                <li role="presentation"><a href="#">用户管理</a></li>
+                <li role="presentation"><a href="#">资产管理</a></li>
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"  href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    部署管理 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="">模块部署</a></li>
+                        <li><a href="">应用部署</a></li>
+                    <ul>
+                </li>
+            </ul>
+        </div>
+        </div>
+        </div>
+    </div>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+</body>
+
+  
+</html>   
+
+
+
+
+
+<!--
+{% for u in user.object_list %}
+    <p>{{ u.username }}</p>
+{% endfor %}
+
+<p>
+    {% for page_number in user.paginator.page_range %}
+        {% ifequal page_number user.number %}
+            {{ page_number }}
+        {% else %}
+            <a href="?page={{ page_number }}">{{ page_number }}</a>
+        {% endifequal %}
+    {% endfor %}
+</p>
+-->

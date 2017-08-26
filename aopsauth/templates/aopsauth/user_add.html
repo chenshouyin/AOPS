@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="right_col" role="main">
+<form class="form-horizontal" action="{% url 'user_add' 'add' %}" method="POST">
+    {% csrf_token %}
+    {% for i in form %}
+        {{ i.label_tag }}
+        {{ i }}
+        <br>
+    {% endfor %}
+
+    <input type="submit" value="提交"></input>
+    <!--
+    {{ form.username.errors }}
+    <label for="{{ form.username.id_for_label }}">用户名:</label>
+    <input type="text" ></input><br>
+
+    <label for="{{ form.password.id_for_label }}">密码:</label>
+    <input type="text"></input></br>
+
+    <label for="{{ form.email.id_for_label }}">邮箱:</label>
+    <input type="text"></input></br>
+    
+    <label for="{{ form.mobile.id_for_label }}">手机:</label>
+    <input type="text" ></input></br>
+    -->
+</form>
+</div>
+{% endblock %}

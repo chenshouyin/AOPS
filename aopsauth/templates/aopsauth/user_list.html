@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="right_col" role="main">
+    <div>
+    <a href="{% url 'user_add' 'add' %}">增加用户<span class="glyphicon glyphicon-plus" aria-hidden="true"></></a>
+    </div>
+
+    <div class="container" style="width:600px">
+        <div class="row">
+            {% for i in all_users %}
+            <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+                <div class="well profile_view">
+                    <div class="col-sm-12">
+                        {% for group in i.group.all %}
+                        <span class="label label-info">{{ group }}</span>
+                        {% endfor %}
+
+                        <div class="left col-xs-7">
+                            <strong>{{ i.first_name }}</strong>
+                            <small>
+                                {% if i.role == 'SU' %}
+                                管理员
+                                {% elif i.role == 'GA' %}
+                                组管理员
+                                {% else %}
+                                普通用户
+                                {% endif %}
+                            </small>
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-envelope-o"></i> {{ i.email }}</li>
+                                <li><i class="fa fa-phone"></i> {{ i.mobile }}</li>
+                            </ul>
+                        </div>
+
+                        <div class="right col-xs-5 text-center">
+                            <img src="/static/img/avatar2.jpg" alt="" class="img-circle img-responsive">
+                        </div>
+
+                        <div class="col-xs-12 bottom text-center">
+                            <div class="col-xs-12 col-sm-6 emphasis">
+                                <p>最近登录：{{ i.last_login|date:"Y-m-d" }}</p>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 emphasis">
+                                {% if i.is_active %}
+                                <span class="label label-info">激活</span>
+                                {% else %}
+                                <span class="label label-danger">锁定</span>
+                                {% endif %}
+                                <div class="btn-group">
+                                    <a href="{% url 'user_edit' uid=i.pk action='edit' %}" class="btn btn-success btn-xs" role="button"><i class="fa fa-pencil"></i></a>
+                                    <!--<a href="{% url 'user_delete' uid=i.pk action='delete' %}"  data-toggle="modal" data-target="#reqDelete-{{ i.pk }}" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o "></i></a>-->
+                                    <p><a href="{% url 'user_delete' uid=i.pk action='delete' %}" color="#FF0000">删除</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

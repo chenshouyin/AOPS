@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style type="text/css">
+table {
+width: 1000px;
+border: 1px solid green;
+border-spacing: 20px;
+border-collapse: collapse; 
+}
+th {
+text-align: center;
+border: 1px solid;
+height: 50px;
+}
+td {
+border: 1px solid;
+text-align: center;    
+height: 50px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="right_col" role="main">
+<p><button type="button" onclick="location.href='{% url 'add_asset' %}'">添加主机</button></p>
+    <div class="table">
+    <table>
+        <tr>    
+            <th>主机名</th>
+            <th>IP</th>
+            <th>内网/ILO</th>
+            <th>IDC</th>
+            <th>厂商/CPU/内存/磁盘</th>
+            <th>状态</th>
+            <th>编辑</th>
+        </tr>
+        {% for info in asset %}
+        <tr>
+            <td>{{ info.hostname }}</td>
+            <td>{{ info.ip }}</td>
+            <td>{{ info.other_ip }}</td>
+            <td>{{ info.idc.name }}</td>
+            <td>{{ info.brand }}/{{ info.cpu }}/{{ info.memorh }}/{{ info.disk }}</td>
+            <td>
+                {% if info.status == 1 %}
+                    <font color="green">运行</font>
+                {% elif info.status == 2 %}
+                    <font color="red">关机</font>
+                {% elif info.status == 3%}
+                    <font>维修</font>
+                {% elif info.status == 4%}
+                    <font>下架</font<
+                {% else %}
+                    <font>未确认</font>
+                {% endif %}
+            </td>
+            <td><a href="{% url 'delete_asset' info.id  %}"><font color="red">删除</font></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <div class="paginator">
+        <p>
+        {% if asset.has_previous %}
+            <a href="?page={{ asset.previous_page_number }}">前一页</a>
+        {% endif %}
+        {% if asset.has_next %}
+            <a href="?page={{ asset.next_page_number }}">下一页</a>
+        {% endif %}
+        </p>
+    </div>
+
+</div>
+{% endblock %}

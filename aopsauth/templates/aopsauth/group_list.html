@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="right_col" role="main">
+    <div>
+    <a href="#"><span class="glyphicon glyphicon-plus" aria-hidden="true"></></a>
+    </div>
+
+    <div>
+    {% for group in groups %}
+        {{ group }}
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
